@@ -23,23 +23,23 @@ It includes most of the necessary stuff to implement basic code!
 '!=', 
 '<=', 
 
-and (&&), 
+`and (&&), 
 or (||), 
-xor (|)
+xor (|)`
 
 ---
 
 ### ✅ Available Keywords
-true, false, noone, infinity
+`true, false, noone, infinity
 vk_left, vk_right, vk_up, vk_down, vk_enter, vk_space
 c_red, c_lime, c_blue, c_black, c_white, 
 current_time, keyboard_string, mouse_x, mouse_y, 
-room, room_width, room_height, view_camera
+room, room_width, room_height, view_camera`
 
 ---
 
 ### ✅ Available Functions
-show_message, show_debug_message, 
+`show_message, show_debug_message, 
 array_create, array_length, array_get, array_set, array_push, 
 struct_get_names, struct_get, struct_set, struct_remove, 
 instance_create_layer, instance_create_depth, instance_destroy, instance_exists, 
@@ -54,7 +54,7 @@ merge_color, make_color_rgb, make_color_hsv,
 audio_play_sound, audio_stop_sound, 
 room_goto, 
 camera_get_view_x, camera_get_view_y, 
-camera_get_view_width, camera_get_view_height
+camera_get_view_width, camera_get_view_height`
 
 ---
 
