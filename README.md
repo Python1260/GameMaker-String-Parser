@@ -12,6 +12,9 @@ It includes most of the necessary stuff to implement basic code!
 ## 📄 Documentation
 
 ### ✅ Available Arithmetical Operators
++
+-
+*
 /
 %
 <
@@ -24,10 +27,6 @@ It includes most of the necessary stuff to implement basic code!
 and (&&)
 or (||)
 xor (|)
-
-yaml
-Copier
-Modifier
 
 ---
 
