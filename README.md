@@ -12,20 +12,19 @@ It includes most of the necessary stuff to implement basic code!
 ## 📄 Documentation
 
 ### ✅ Available Arithmetical Operators
-+
--
-*
-/
-%
-<
+'+', 
+'-', 
+'*', 
+'/', 
+'%', 
+'<', 
 
-==
-!=
-<=
+'==', 
+'!=', 
+'<=', 
 
-=
-and (&&)
-or (||)
+and (&&), 
+or (||), 
 xor (|)
 
 ---
