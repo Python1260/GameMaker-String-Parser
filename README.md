@@ -1,7 +1,7 @@
 # GameMaker-String-Parser
 This is a FREE and EASY-TO-USE string parser for GameMaker Studio 2! It includes most of the necessary stuff to implement basic code! (check out below for more info)
 
-STRING PARSER 2.10 by Tymon Kubik (ME)
+STRING PARSER 2.10 by Tymon Kubik (ME)\n
     - "It's not like im going to buy an extension for 30$!!! Im gonna make it myself >:)"
 
 Anyways, here's the Documentation:
