@@ -46,14 +46,14 @@ instance_create_layer, instance_create_depth, instance_destroy, instance_exists,
 place_meeting, instance_place, collision_rectangle, 
 lengthdir_x, lengthdir_y, point_distance, point_direction, angle_difference, 
 clamp, min, max, round, floor, ceil, sin, 
-random_range, irandom_range
-keyboard_check, keyboard_check_pressed, keyboard_check_released, ord
-draw_sprite, draw_sprite_ext, draw_text, draw_rectangle
-draw_set_color, draw_set_alpha, draw_set_font
-merge_color, make_color_rgb, make_color_hsv
-audio_play_sound, audio_stop_sound
-room_goto
-camera_get_view_x, camera_get_view_y
+random_range, irandom_range, 
+keyboard_check, keyboard_check_pressed, keyboard_check_released, ord, 
+draw_sprite, draw_sprite_ext, draw_text, draw_rectangle, 
+draw_set_color, draw_set_alpha, draw_set_font, 
+merge_color, make_color_rgb, make_color_hsv, 
+audio_play_sound, audio_stop_sound, 
+room_goto, 
+camera_get_view_x, camera_get_view_y, 
 camera_get_view_width, camera_get_view_height
 
 ---
