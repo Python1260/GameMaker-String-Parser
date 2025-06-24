@@ -59,10 +59,10 @@ camera_get_view_width, camera_get_view_height`
 ---
 
 ### ✅ Available Statements
-`for
-while
+`for,
+while,
 if, else if, else
-with
+with,
 switch (supports "case" and "default")`
 
 ---
