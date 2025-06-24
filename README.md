@@ -25,7 +25,8 @@ It includes most of the necessary stuff to implement basic code!
 
 `and (&&), 
 or (||), 
-xor (|)`
+xor (|)`,
+Ternary Operator: `var variable = condition ? value_true : value_false`
 
 ---
 
