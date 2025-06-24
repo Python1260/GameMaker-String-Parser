@@ -58,8 +58,23 @@ camera_get_view_width, camera_get_view_height`
 
 ---
 
-## 📝 Notes / TODO
+### ✅ Available Statements
+`for
+while
+if, else if, else
+with
+switch (supports "case" and "default")`
+        
+### ✅ Other
+`return, exit
+break
+continue`
 
+## 📝 Notes / TODO
+- You should ALWAYS put a `;` at the end of each line!
+  (except for the statements that need `{}`)
+- Variables can be declared with nothing, `var `, or `global.` before their names,
+  but when using `with` and declaring without a prefix will set the variable on the instance
 - Parentheses work!  
 - Single-line comments (`//`) and multi-line comments (`/* */`) work!  
 - Array setting/getting is done using `array_set` and `array_get`  
