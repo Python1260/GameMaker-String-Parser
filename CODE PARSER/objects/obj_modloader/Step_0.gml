@@ -7,6 +7,10 @@ var key_confirm = keyboard_check_pressed(vk_enter)
 var key_back = keyboard_check_pressed(vk_shift)
 var key_paste = keyboard_check(vk_control) and keyboard_check_pressed(ord("V"))
 
+var key_fullscreen = keyboard_check_pressed(vk_tab)
+
+if keyboard_check_pressed(vk_f4) { screen_save("screen_shot.png") }
+
 var key_click_press = mouse_check_button_pressed(mb_left)
 var key_click_rel = mouse_check_button_released(mb_left)
 
@@ -16,13 +20,15 @@ var moveY = (key_down - key_up)
 var disw = display_get_gui_width()
 var dish = display_get_gui_height()
 
-var rmx = window_mouse_get_x()
-var rmy = window_mouse_get_y()
+var rmx = get_real_mouse_x()
+var rmy = get_real_mouse_y()
 
 var mouse_move = (mouse_wheel_down() - mouse_wheel_up())
 
 log_addrel = approach(log_addrel, 1, 0.1)
 documentation_rel = approach(documentation_rel, documentation_open, 0.1)
+
+if key_fullscreen { window_set_fullscreen(!window_get_fullscreen()) }
 
 if key_click_rel {
 	documentation_holdingbar = false
@@ -158,7 +164,7 @@ if documentation_open and documentation_rel == 1 {
 		}
 		
 		if documentation_holdingbar {
-			var _dmy = window_mouse_get_delta_y() * 1.75
+			var _dmy = get_real_mouse_delta_y() * 1.75
 			
 			documentation_offset += (_dmy / dish) * (max(string_height(documentation_text) - dish, 0) + string_height("A") * 0.5)
 		}

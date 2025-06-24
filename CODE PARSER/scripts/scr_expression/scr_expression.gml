@@ -25,6 +25,8 @@ function expression_strip(str) {
 }
 
 function expression_split_region(str, delimiter, regionelems, deepdelimiter, abortchar, removeempty=false) {
+	if !is_array(delimiter) { delimiter = [delimiter] }
+	
 	var result = []
 	
 	var _rstart = {}
@@ -39,11 +41,19 @@ function expression_split_region(str, delimiter, regionelems, deepdelimiter, abo
 	
 	for (var c = 1;c <= string_length(str);c++) {
 		var _char = string_char_at(str, c)
+		var _isdelim = noone
 		
-		if _char == delimiter {
+		for (var d = 0;d < array_length(delimiter);d++) {
+			if string_copy(str, c, string_length(delimiter[d])) == delimiter[d] {
+				_isdelim = delimiter[d]
+				break
+			}
+		}
+		
+		if _isdelim != noone {
 			if _open {
-				array_push(result, [false, string_copy(str, _lastsplit, c - _lastsplit)])
-				_lastsplit = c + 1
+				array_push(result, [-string_length(_isdelim), string_copy(str, _lastsplit, c - _lastsplit)])
+				_lastsplit = c + string_length(_isdelim)
 			}
 		}
 		else if _char == abortchar and _open {
@@ -154,6 +164,25 @@ function expression_is_inlayer(str, pos, regionelems) {
 	}
 	
 	return _open
+}
+
+function expression_get_inlayer(str, target, regionelems) {
+	var _basepos = 1
+	var _tarpos = noone
+	
+	for (var p = 0;p < string_count(target, str);p++) {
+		var _oppos = string_pos_ext(target, str, _basepos)
+			
+		if _oppos and expression_is_inlayer(str, _oppos, regionelems) {
+			_tarpos = _oppos
+			break
+		}
+		else {
+			_basepos = _oppos + 1
+		}
+	}
+	
+	return _tarpos
 }
 
 function expression_remove_comments(str, startchar, endchar) {

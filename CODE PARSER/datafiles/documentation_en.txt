@@ -22,6 +22,7 @@ Anyways, here's the Documentation:
             and (&&)
             or (||)
             xor (|)
+            Ternary Operator: 'var variable = condition ? value_true : value_false'
 
         --- Avalaible keywords ---
             -true, false, noone, infinity
@@ -48,7 +49,24 @@ Anyways, here's the Documentation:
             -camera_get_view_x, camera_get_view_y
             -camera_get_view_width, camera_get_view_height
 
+        --- Available Statements ---
+            -for
+            -while
+            -if, else if, else
+            -with
+            -switch (supports "case" and "default")
+        
+        --- Other ---
+            -return, exit
+            -break
+            -continue
+
 NOTES / TODO:
+    - You should ALWAYS put a ";" at the end of each line!
+      (except for the statements that need "{}")
+    - Variables can be declared with nothing, "var ", or "global." before their names,
+      but when using "with" and declaring without a prefix will set the variable on the instance
+    - You can store custom defined functions in a variable! (ex: "var _func = function() {}")
     - Parentheses work!
     - Single-line comments (//) and multiple-line comments (/* */) work!
     - Array setting and getting is done using the functions "array_set" and "array_get"

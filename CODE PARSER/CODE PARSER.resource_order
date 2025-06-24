@@ -14,6 +14,7 @@
     {"name":"Shaders","order":6,"path":"folders/Shaders.yy",},
     {"name":"Sounds","order":3,"path":"folders/Sounds.yy",},
     {"name":"Sprites","order":1,"path":"folders/Sprites.yy",},
+    {"name":"icons","order":4,"path":"folders/Sprites/icons.yy",},
     {"name":"Tile Sets","order":2,"path":"folders/Tile Sets.yy",},
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
   ],
@@ -27,6 +28,7 @@
     {"name":"scr_parser","order":2,"path":"scripts/scr_parser/scr_parser.yy",},
     {"name":"scr_Token","order":3,"path":"scripts/scr_Token/scr_Token.yy",},
     {"name":"scr_utilities","order":6,"path":"scripts/scr_utilities/scr_utilities.yy",},
+    {"name":"spr_iconimadehereforfun_large","order":1,"path":"sprites/spr_iconimadehereforfun_large/spr_iconimadehereforfun_large.yy",},
     {"name":"spr_test2","order":1,"path":"sprites/spr_test2/spr_test2.yy",},
   ],
 }

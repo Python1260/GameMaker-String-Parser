@@ -1,5 +1,7 @@
 var disw = display_get_gui_width()
 var dish = display_get_gui_height()
+var winw = window_get_width()
+var winh = window_get_height()
 
 var rmx = window_mouse_get_x()
 var rmy = window_mouse_get_y()
@@ -38,7 +40,7 @@ for (var m = 0;m <= array_length(mods);m++) {
 
 draw_set_font(ft_small)
 
-gpu_set_scissor(0, dish * 0.85, disw, dish * 0.15)
+gpu_set_scissor(0, winh * 0.85, winw, winh * 0.15)
 
 var _rrel = log_addrel
 for (var l = 0;l < array_length(log_messages);l++) {
@@ -53,7 +55,7 @@ for (var l = 0;l < array_length(log_messages);l++) {
 	draw_text(_lx, _ly, _ltext)
 }
 
-gpu_set_scissor(0, 0, disw, dish)
+gpu_set_scissor(0, 0, winw, winh)
 
 var _addchar = (current_time / 1000 * room_speed) % (room_speed / 2) >= (room_speed / 4) ? "|" : " "
 var _fullcstring = string_copy(console_string, 1, console_stringoffset) + _addchar + string_copy(console_string, console_stringoffset + 1, string_length(console_string) - console_stringoffset)
@@ -79,12 +81,12 @@ if documentation_rel > 0 {
 		draw_roundrect_ext(disw - string_width("A"), _dy + _barpos, disw, _dy + _barpos + _barsize, 12, 12, false)
 	}
 	
-	gpu_set_scissor(0, _dy, disw, dish)
+	gpu_set_scissor(0, _dy * (winh / dish), winw, winh)
 	
 	draw_set_color(c_white)
 	draw_text(string_width("A"), _dy + string_height("A") * 0.5 - documentation_offset, documentation_text)
 	
-	gpu_set_scissor(0, 0, disw, dish)
+	gpu_set_scissor(0, 0, winw, winh)
 }
 
 draw_set_font(ft_big)

@@ -65,6 +65,10 @@ function token_memory_init() {
 	struct_set(global.token_functions, "camera_get_view_y", function(cam) { return camera_get_view_y(cam); })
 	struct_set(global.token_functions, "camera_get_view_width", function(cam) { return camera_get_view_width(cam); })
 	struct_set(global.token_functions, "camera_get_view_height", function(cam) { return camera_get_view_height(cam); })
+	struct_set(global.token_functions, "sprite_add", function(path, imgnum, rmback, smooth, xorig, yorig) { return sprite_add(path, imgnum, rmback, smooth, xorig, yorig); })
+	struct_set(global.token_functions, "sprite_delete", function(sprite) { return sprite_delete(sprite); })
+	struct_set(global.token_functions, "audio_create_stream", function(path) { return audio_create_stream(path) })
+	struct_set(global.token_functions, "audio_delete_stream", function(audio) { return audio_destroy_stream(audio) })
 	
 	global.token_operators = {}
 	struct_set(global.token_operators, "+", [function(a, b) { return a + b }, 1])
@@ -86,7 +90,7 @@ function token_memory_init() {
 	struct_set(global.token_operators, "|", [function(a, b) { return a | b }, 0])
 	
 	global.token_memory = {}
-
+	
 	global.token_memory_environment = {}
 	struct_set(global.token_memory_environment, "true", function() { return true })
 	struct_set(global.token_memory_environment, "false", function() { return false })

@@ -21,9 +21,21 @@ function get_text_fromfile(path) {
 	return filecontent
 }
 
+function get_real_mouse_x() {
+	return window_mouse_get_x() * (display_get_gui_width() / window_get_width())
+}
+
+function get_real_mouse_y() {
+	return window_mouse_get_y() * (display_get_gui_height() / window_get_height())
+}
+
+function get_real_mouse_delta_y() {
+	return window_mouse_get_delta_y() * (display_get_gui_height() / window_get_height())
+}
+
 function draw_textbutton(bx1, by1, bx2, by2, bborder, btext) {
-	var rmx = window_mouse_get_x()
-	var rmy = window_mouse_get_y()
+	var rmx = get_real_mouse_x()
+	var rmy = get_real_mouse_y()
 	
 	var _inrect = point_in_rectangle(rmx, rmy, bx1, by1, bx2, by2)
 	var _pressing = mouse_check_button(mb_left)

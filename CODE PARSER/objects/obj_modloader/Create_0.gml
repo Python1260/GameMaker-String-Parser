@@ -5,7 +5,7 @@ if !directory_exists(global.path_mods) { directory_create(global.path_mods) }
 
 token_memory_init()
 
-game_version = 2.2
+game_version = 2.0
 game_title = $"GML EXECUTOR {game_version}"
 
 mods = get_mods_fromdir(global.path_mods)

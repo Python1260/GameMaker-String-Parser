@@ -126,6 +126,15 @@ function TokenValue(_, value, ssid = -1) : TokenRunner(_, value, ssid = -1) cons
 	}
 }
 
+function TokenNegation(_, value, ssid = -1) : TokenRunner(_, value, ssid = -1) constructor {
+	sessionid = ssid
+	typeargument_parsed = noone
+	
+	static Run = function() {
+		return !typeargument.Run()
+	}
+}
+
 function TokenContinue(_, parentrunner, ssid = -1) : TokenRunner(_, parentrunner, ssid = -1) constructor {
 	sessionid = ssid
 	
@@ -384,7 +393,10 @@ function TokenCondition(children, conditions, ssid = -1) : TokenRunner(children,
 				for (var c = 0;c < array_length(children[i]);c++) {
 					var _res = children[i][c].Run()
 					if !is_undefined(_res) { array_push(_results, _res) }
+					
+					if global.token_returned[$ sessionid] { break }
 				}
+				if global.token_returned[$ sessionid] { break }
 		
 				return _results
 			}
@@ -395,21 +407,24 @@ function TokenCondition(children, conditions, ssid = -1) : TokenRunner(children,
 function TokenWith(children, obj, ssid = -1) : TokenRunner(children, obj, ssid = -1) constructor {
 	sessionid = ssid
 	
+	running = true
+	skip = false
+	
 	static Run = function() {
 		var _results = []
-		var _csave = children
-		var _ssave = sessionid
+		var _myself = self
 		
 		var _rresult = typeargument.Run()
 		with (_rresult) {
-			for (var c = 0;c < array_length(_csave);c++) {
-				global.token_currentinstance[$ _ssave] = _rresult
-				var _res = _csave[c].Run()
+			for (var c = 0;c < array_length(_myself.children);c++) {
+				global.token_currentinstance[$ _myself.sessionid] = _rresult
+				var _res = _myself.children[c].Run()
 				if !is_undefined(_res) { array_push(_results, _res) }
 				
-				if global.token_returned[$ _ssave] { break }
+				if _myself.skip { _myself.skip = false; break; }
+				if global.token_returned[$ _myself.sessionid] or !_myself.running { break }
 			}
-			if global.token_returned[$ _ssave] { break }
+			if global.token_returned[$ _myself.sessionid] or !_myself.running { break }
 		}
 		global.token_currentinstance[$ sessionid] = noone
 		
@@ -428,5 +443,30 @@ function TokenDeclaration(funcinfo, funchandle, ssid = -1) : TokenRunner(funcinf
 		var _funcbuild = method(children, typeargument)
 		
 		return new TokenValue(0, _funcbuild, sessionid).Run()
+	}
+}
+
+function TokenSwitch(children, conditions, ssid = -1) : TokenRunner(children, conditions, ssid = -1) constructor {
+	sessionid = ssid
+	
+	running = true
+	
+	static Run = function() {
+		var _results = []
+		var _compval = typeargument[0].Run()
+		
+		for (var i = 0;i < array_length(typeargument[1]);i++) {
+			if typeargument[1][i].Run() == _compval {
+				for (var c = 0;c < array_length(children[i]);c++) {
+					var _res = children[i][c].Run()
+					if !is_undefined(_res) { array_push(_results, _res) }
+					
+					if global.token_returned[$ sessionid] or !running { break }
+				}
+				if global.token_returned[$ sessionid] or !running { break }
+			}
+		}
+		
+		return _results
 	}
 }

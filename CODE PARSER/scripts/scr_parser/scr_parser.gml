@@ -1,4 +1,30 @@
 function parse_value(str, sessionid) {
+	// Negative value
+	if string_starts_with(str, "!") {
+		var _otherresult = string_copy(str, 2, string_length(str) - 2 + 1)
+		return new TokenNegation(0, parse_value(_otherresult, sessionid), sessionid)
+	}
+	
+	// Ternary operator
+	if string_count("?", str) > 0 and string_count(":", str) > 0 {
+		var _ifpos = expression_get_inlayer(str, "?", global.token_regionelems)
+		var _elsepos = expression_get_inlayer(str, ":", global.token_regionelems)
+		
+		if _ifpos and _elsepos {
+			var _cond = string_copy(str, 1, _ifpos - 1)
+			var _ifres = string_copy(str, _ifpos + 1, _elsepos - (_ifpos + 1))
+			var _elseres = string_copy(str, _elsepos + 1, string_length(str) - (_elsepos + 1) + 1)
+			
+			return new TokenFunction([
+				new TokenCondition([
+						[parse_value(_ifres, sessionid)], [parse_value(_elseres, sessionid)]],
+						[parse_snippet(_cond, sessionid), parse_snippet("true", sessionid)]
+					, sessionid),
+				new TokenValue(0, 0, sessionid)
+			], new TokenValue(0, array_get, sessionid), sessionid)
+		}
+	}
+	
 	// String
 	if string_starts_with(str, "\"") and string_ends_with(str, "\"") {
 		var _strresult = string_copy(str, 2, string_length(str) - 2)
@@ -306,7 +332,46 @@ function parse_region(str, parentrunner, sessionid) {
 				var _frunner = string_copy(rstring, _rspos + 1, string_length(rstring) - _rspos - 1)
 				
 				var _runner = new TokenWith([], parse_declaration(_fargs, sessionid), sessionid)
-				_runner.children = parse_region(_frunner, parentrunner, sessionid).children
+				_runner.children = parse_region(_frunner, _runner, sessionid).children
+				array_push(parserchildren, _runner)
+			}
+			else if string_starts_with(rstring, "switch") {
+				var _fparams = expression_split_region(string_copy(rstring, 7, string_length(rstring) - 7 + 1), "..", global.token_regionelems, "..", "{", false)[0][1]
+				var _fargs = string_starts_with(_fparams, "(") and string_ends_with(_fparams, ")") ? string_copy(_fparams, 2, string_length(_fparams) - 2) : _fparams
+				
+				var _rspos = string_pos_ext("{", rstring, 7 + string_length(_fparams))
+				var _frunner = string_copy(rstring, _rspos + 1, string_length(rstring) - _rspos - 1)
+				
+				var _runner = new TokenSwitch([], [parse_value(_fargs, sessionid), []], sessionid)
+				
+				var _frparts = expression_split_region(_frunner, ["case", "default"], global.token_regionelems, "..", "..", true)
+				
+				for (var p = array_length(_frparts) - 1;p >= 0;p--) {
+					var _part = _frparts[p][1]
+					var _nextc = string_pos(":", _part)
+					var _condarg = string_copy(_part, 1, _nextc - 1)
+					var _parsearg = string_copy(_part, _nextc + 1, string_length(_part) - _nextc)
+					
+					if (p > 0 and abs(_frparts[p - 1][0]) == 7) or (array_length(_frparts) == 1 and abs(_frparts[p][0] == 7)) {
+						array_push(_runner.typeargument[1], parse_value(_fargs, sessionid))
+						array_push(_runner.children, [parse_region(_parsearg, _runner, sessionid)])
+					}
+					else {
+						if _parsearg == "" {
+							var _parseprev = array_last(_runner.children)[0]
+							array_push(_runner.typeargument[1], parse_value(_condarg, sessionid))
+							array_push(_runner.children, [_parseprev])
+						}
+						else {
+							array_push(_runner.typeargument[1], parse_value(_condarg, sessionid))
+							array_push(_runner.children, [parse_region(_parsearg, _runner, sessionid)])
+						}
+					}
+				}
+				
+				_runner.children = array_reverse(_runner.children)
+				_runner.typeargument[1] = array_reverse(_runner.typeargument[1])
+				
 				array_push(parserchildren, _runner)
 			}
 			else if string_count("function", rstring) > 0 {
@@ -322,6 +387,9 @@ function parse_region(str, parentrunner, sessionid) {
 				var _fstring = string_copy(rstring, 7, string_length(rstring) - 7 + 1)
 				
 				array_push(parserchildren, new TokenReturn(0, parse_declaration(_fstring, sessionid), sessionid))
+			}
+			else if string_starts_with(rstring, "exit") {
+				array_push(parserchildren, new TokenReturn(0, new TokenValue(0, undefined, sessionid), sessionid))
 			}
 			else if string_starts_with(rstring, "continue") {
 				array_push(parserchildren, new TokenContinue(0, parentrunner, sessionid))
@@ -347,9 +415,14 @@ function parse_string(str, sessionid=undefined) {
 	global.token_currentinstance[$ sessionid] = noone
 	if sessionid > 0 or !struct_exists(global.token_memory, sessionid) { global.token_memory[$ sessionid] = {} }
 	
-	str = expression_remove_comments(str, "//", "\n")
-	str = expression_remove_comments(str, "/*", "*/")
-	var result = parse_region(str, noone, sessionid)
+	var result = new TokenValue(0, undefined, sessionid)
+	
+	try {
+		str = expression_remove_comments(str, "//", "\n")
+		str = expression_remove_comments(str, "/*", "*/")
+		result = parse_region(str, noone, sessionid)
+	}
+	catch (exception) { result = new TokenValue(0, $"Fatal error occured while compiling: {exception.message}", sessionid) }
 	
 	return result
 }
