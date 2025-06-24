@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_expression",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_expression",
+  "parent":{
+    "name":"parsing",
+    "path":"folders/Scripts/parsing.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
