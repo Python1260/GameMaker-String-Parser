@@ -64,11 +64,15 @@ while
 if, else if, else
 with
 switch (supports "case" and "default")`
+
+---
         
 ### ✅ Other
 `return, exit
 break
 continue`
+
+---
 
 ## 📝 Notes / TODO
 - You should ALWAYS put a `;` at the end of each line!
