@@ -79,6 +79,7 @@ continue`
   (except for the statements that need `{}`)
 - Variables can be declared with nothing, `var `, or `global.` before their names,
   but when using `with` and declaring without a prefix will set the variable on the instance
+- You can store custom defined functions in a variable! (ex: `var _func = function() {}`)
 - Parentheses work!  
 - Single-line comments (`//`) and multi-line comments (`/* */`) work!  
 - Array setting/getting is done using `array_set` and `array_get`  
