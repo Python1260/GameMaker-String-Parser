@@ -68,7 +68,7 @@ function token_memory_init() {
 	struct_set(global.token_functions, "sprite_add", function(path, imgnum, rmback, smooth, xorig, yorig) { return sprite_add(path, imgnum, rmback, smooth, xorig, yorig); })
 	struct_set(global.token_functions, "sprite_delete", function(sprite) { return sprite_delete(sprite); })
 	struct_set(global.token_functions, "audio_create_stream", function(path) { return audio_create_stream(path) })
-	struct_set(global.token_functions, "audio_delete_stream", function(audio) { return audio_destroy_stream(audio) })
+	struct_set(global.token_functions, "audio_destroy_stream", function(audio) { return audio_destroy_stream(audio) })
 	
 	global.token_operators = {}
 	struct_set(global.token_operators, "+", [function(a, b) { return a + b }, 1])
@@ -118,7 +118,7 @@ function token_memory_init() {
 	
 	global.token_vars_environment = {}
 	struct_set(global.token_vars_environment, "keyboard_string", function(newval) { keyboard_string = newval })
-	struct_set(global.token_memory_environment, "room", function(newval) { room = newval })
+	struct_set(global.token_vars_environment, "room", function(newval) { room = newval })
 	struct_set(global.token_vars_environment, "room_width", function(newval) { room_width = newval })
 	struct_set(global.token_vars_environment, "room_height", function(newval) { room_height = newval})
 	
