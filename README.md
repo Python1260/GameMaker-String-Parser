@@ -55,7 +55,9 @@ merge_color, make_color_rgb, make_color_hsv,
 audio_play_sound, audio_stop_sound, 
 room_goto, 
 camera_get_view_x, camera_get_view_y, 
-camera_get_view_width, camera_get_view_height`
+camera_get_view_width, camera_get_view_height,
+sprite_add, sprite_delete,
+audio_create_stream, audio_destroy_stream`
 
 ---
 
