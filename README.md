@@ -77,6 +77,32 @@ continue`
 
 ---
 
+### 🛠️ HOW TO CREATE YOUR OWN INSTANCE:
+1) Use `with(instance_create_layer(x, y, "Instances", obj_custom)) { // Code here }`.
+   You should replace `x` and `y` with your 
+   desired position. This will create a blank `obj_custom` in the current room.
+2) For your instance to run GML events like a 'normal' GameMaker instance,
+   you will need to set them as functions using those instance variables:
+           `event_create, event_destroy, event_step, event_beginstep,
+           event_draw, event_drawgui, event_roomstart, event_roomend`
+3) Your functions should be simply defined like this: `variablename = function() { // Code here }`.
+   Any variables used in these functions will be set to the instance.
+
+FULL EXAMPLE:
+`with (instance_create_layer(room_width / 2, room_height / 2, "Instances", obj_custom)) {
+        sprite_index = spr_test1;
+
+        event_step = function() {
+                var key_sound = keyboard_check_pressed(ord("Z"));
+             
+                if key_sound {
+                        audio_play_sound(sfx_noise, 1, false);
+                }
+        }
+}`
+
+---
+
 ## 📝 Notes / TODO
 - You should ALWAYS put a `;` at the end of each line!
   (except for the statements that need `{}`)
