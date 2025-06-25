@@ -89,7 +89,7 @@ continue`
    Any variables used in these functions will be set to the instance.
 
 FULL EXAMPLE:
-`with (instance_create_layer(room_width / 2, room_height / 2, "Instances", obj_custom)) {
+with (instance_create_layer(room_width / 2, room_height / 2, "Instances", obj_custom)) {
         sprite_index = spr_test1;
 
         event_step = function() {
@@ -99,7 +99,7 @@ FULL EXAMPLE:
                         audio_play_sound(sfx_noise, 1, false);
                 }
         }
-}`
+}
 
 ---
 
